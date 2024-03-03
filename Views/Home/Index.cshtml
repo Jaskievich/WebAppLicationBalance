@@ -1,0 +1,43 @@
+﻿@model List<Account>
+@{
+    ViewData["Title"] = "Счета";
+}
+<h3>Счета</h3>
+<p>
+    <a asp-action="CreateAccount">Выставить счет</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @* <th></th> *@
+            <th>Лицевой счет</th>
+            <th>Выставленная сумма</th>
+            <th>Описание</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @* <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td> *@
+                    <td>
+                        @item.Personal_Account
+                    </td>
+                    <td>
+                        @item.Sum_account
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>

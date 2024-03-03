@@ -1,0 +1,41 @@
+﻿@model List<Payment>
+@{
+    ViewData["Title"] = "Платежи";
+}
+<h3>@ViewData["Title"]</h3>
+<p>
+    <a asp-action="CreatePayment">Выставить платеж</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Лицевой счет</th>
+            <th>Сумма платежа</th>
+            <th>Назначение платежа</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                   @*  <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td> *@
+                    <td>
+                        @item.Personal_Account
+                    </td>
+                    <td>
+                        @item.Sum_payment
+                    </td>
+                    <td>
+                        @item.Purpose_payment
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
