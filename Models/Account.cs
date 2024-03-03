@@ -95,26 +95,6 @@ namespace WebApplicationBalance.Models
             connection?.Close();
         }
 
-        //private void _GetTable<T>(List<T> items, int n_fild, string query )
-        //{
-        //    SqlCommand command = new SqlCommand(query, connection);
-        //    SqlDataReader reader = command.ExecuteReader();
-        //    if (reader.HasRows) // если есть данные
-        //    {
-        //        object [] fields = new object[n_fild];
-        //        while (reader.Read()) // построчно считываем данные
-        //        {
-        //            for(int i = 0; i < n_fild; ++i)
-        //            {
-        //                fields[i] = reader.GetValue(i);
-        //            }
-        //            items.Add(new Account((int)id, (string)account, (Decimal)sum, (string)desc));
-
-        //        }
-        //    }
-        //    reader.Close();
-        //}
-
         public void GetTable(List<Account> accounts)
         {
             SqlCommand command = new SqlCommand("Select * from Accounts", connection);
