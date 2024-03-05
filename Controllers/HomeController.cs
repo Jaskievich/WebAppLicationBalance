@@ -10,9 +10,8 @@ namespace WebApplicationBalance.Controllers
         private readonly ILogger<HomeController> _logger;
 
 
-        //    private MyDataBase dataBase = new MyDataBase("Server=.\\SQLEXPRESS;Database=Balance;Trusted_Connection=True;") ;
+        private MyDataBase dataBase = new MyDataBase("Server=.\\SQLEXPRESS;Database=Balance;Trusted_Connection=True;") ;
 
-        private MyDataBase dataBase = new MyDataBase("Server=.lance;Trusted_Connection=True;");
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
