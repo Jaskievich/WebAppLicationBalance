@@ -1,4 +1,4 @@
-﻿@model WebApplicationBalance.Models.Account
+﻿@model WebApplicationBalance.Models.PersonalAccountInvoice
 
 @{
     ViewData["Title"] = "Выставить счет";
@@ -8,18 +8,24 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateAccount">
+        <form asp-action="CreateAccountInvoice">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
          
             <div class="form-group">
-                <label asp-for="Personal_Account" class="control-label"></label>
-                <input asp-for="Personal_Account" class="form-control" />
-                <span asp-validation-for="Personal_Account" class="text-danger"></span>
+                <label asp-for="PersonalAccountId" class="control-label"></label>
+                @* <input asp-for="Personal_Account" class="form-control" /> *@
+                <select asp-for="PersonalAccountId" class="form-control">
+                    @foreach (var item in ViewBag.accounts)
+                    {
+                        <option value=@item.Id>@item.Account ( @item.FullName )</option>
+                    }
+                </select>
+                <span asp-validation-for="PersonalAccountId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Sum_account" class="control-label"></label>
-                <input asp-for="Sum_account" class="form-control" />
-                <span asp-validation-for="Sum_account" class="text-danger"></span>
+                <label asp-for="SumAccount" class="control-label"></label>
+                <input asp-for="SumAccount" class="form-control" />
+                <span asp-validation-for="SumAccount" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>

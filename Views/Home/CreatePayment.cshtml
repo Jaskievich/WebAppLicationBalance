@@ -1,4 +1,4 @@
-﻿@model WebApplicationBalance.Models.Payment
+﻿@model WebApplicationBalance.Models.PersonalAccountPayment
 
 @{
     ViewData["Title"] = "Создать платеж";
@@ -12,25 +12,25 @@
         <form asp-action="CreatePayment">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Account_Id" class="control-label"></label>
+                <label asp-for="PersonalAccountId" class="control-label"></label>
                 @* <input asp-for="Personal_Account" class="form-control" /> *@
-                <select asp-for="Account_Id" class="form-control">
+                <select asp-for="PersonalAccountId" class="form-control">
                     @foreach (var item in ViewBag.accounts)
                     {
-                        <option value=@item.Id>@item.Personal_Account ( @item.Description )</option>
+                        <option value=@item.Id>@item.Account ( @item.FullName )</option>
                     }
                 </select>
-                <span asp-validation-for="Account_Id" class="text-danger"></span>
+                <span asp-validation-for="PersonalAccountId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Sum_payment" class="control-label"></label>
-                <input asp-for="Sum_payment" class="form-control" />
-                <span asp-validation-for="Sum_payment" class="text-danger"></span>
+                <label asp-for="SumPayment" class="control-label"></label>
+                <input asp-for="SumPayment" class="form-control" />
+                <span asp-validation-for="SumPayment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Purpose_payment" class="control-label"></label>
-                <input asp-for="Purpose_payment" class="form-control" />
-                <span asp-validation-for="Purpose_payment" class="text-danger"></span>
+                <label asp-for="PurposePayment" class="control-label"></label>
+                <input asp-for="PurposePayment" class="form-control" />
+                <span asp-validation-for="PurposePayment" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Оплатить" class="btn btn-primary" />

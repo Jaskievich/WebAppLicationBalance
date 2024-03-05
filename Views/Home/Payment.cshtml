@@ -1,4 +1,4 @@
-﻿@model List<Payment>
+﻿@model List<PersonalAccountPayment>
 @{
     ViewData["Title"] = "Платежи";
 }
@@ -26,13 +26,13 @@
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                     </td> *@
                     <td>
-                        @item.Personal_Account
+                        @item.Account
                     </td>
                     <td>
-                        @item.Sum_payment
+                        @item.SumPayment
                     </td>
                     <td>
-                        @item.Purpose_payment
+                        @item.PurposePayment
                     </td>
                 </tr>
             }

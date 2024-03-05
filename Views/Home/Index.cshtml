@@ -1,10 +1,10 @@
-﻿@model List<Account>
+﻿@model List<PersonalAccountInvoice>
 @{
     ViewData["Title"] = "Счета";
 }
 <h3>Счета</h3>
 <p>
-    <a asp-action="CreateAccount">Выставить счет</a>
+    <a asp-action="CreateAccountInvoice">Выставить счет</a>
 </p>
 <table class="table">
     <thead>
@@ -27,10 +27,10 @@
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                     </td> *@
                     <td>
-                        @item.Personal_Account
+                        @item.Account
                     </td>
                     <td>
-                        @item.Sum_account
+                        @item.SumAccount
                     </td>
                     <td>
                         @item.Description

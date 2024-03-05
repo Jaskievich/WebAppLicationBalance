@@ -9,8 +9,10 @@ namespace WebApplicationBalance.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private MyDataBase dataBase = new MyDataBase("Server=.\\SQLEXPRESS;Database=Balance;Trusted_Connection=True;") ;
 
+        //    private MyDataBase dataBase = new MyDataBase("Server=.\\SQLEXPRESS;Database=Balance;Trusted_Connection=True;") ;
+
+        private MyDataBase dataBase = new MyDataBase("Server=.lance;Trusted_Connection=True;");
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -18,80 +20,105 @@ namespace WebApplicationBalance.Controllers
 
         public IActionResult Index()
         {
-            List<Account> accounts = new List<Account>();
+            List<PersonalAccountInvoice> accountInvoiceCollection = new List<PersonalAccountInvoice>();
             if (dataBase.Open())
             {
-                dataBase.GetTable(accounts);
+                dataBase.GetTable(accountInvoiceCollection);
                 dataBase.Close();
             }
-            return View(accounts);
+            return View(accountInvoiceCollection);
         }
 
         public IActionResult Payment()
         {
-            List<Payment> payments = new List<Payment>();
+            List<PersonalAccountPayment> paymentCollection = new List<PersonalAccountPayment>();
             if (dataBase.Open())
             {
-                dataBase.GetTable(payments);
+                dataBase.GetTable(paymentCollection);
                 dataBase.Close();
             }
-            return View(payments);
+            return View(paymentCollection);
         }
 
         public IActionResult Balance()
         {
-            List<Balance> balances = new List<Balance>();
+            List<Balance> balanceCollection = new List<Balance>();
             if (dataBase.Open())
             {
-                dataBase.GetTable(balances);
+                dataBase.GetTable(balanceCollection);
                 dataBase.Close();
             }
-            return View(balances);
+            return View(balanceCollection);
         }
 
         [HttpGet]
-        public IActionResult CreateAccount()
+        public IActionResult CreateAccountInvoice()
         {
+            List<PersonalAccount> accountCollection = new List<PersonalAccount>();
+            if (dataBase.Open())
+            {
+                dataBase.GetTable(accountCollection);
+                dataBase.Close();
+            }
+            ViewBag.accounts = accountCollection;
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateAccount(Account account)
+        public IActionResult CreateAccountInvoice(PersonalAccountInvoice personalAccountInvoice)
         {
-            List<Account> accounts = new List<Account>();
+            List<PersonalAccount> accountCollection = new List<PersonalAccount>();
+            List<PersonalAccountInvoice> accountInvoiceCollection = new List<PersonalAccountInvoice>();
             if (dataBase.Open())
             {
-                dataBase.AddAccount(account);
-                dataBase.GetTable(accounts);
+                dataBase.AddPersonalAccountInvoice(personalAccountInvoice);
+                dataBase.GetTable(accountCollection);
+                dataBase.GetTable(accountInvoiceCollection);
                 dataBase.Close();
             }
-            return View("Index", accounts);
+            ViewBag.accounts = accountCollection;
+            return View("Index", accountInvoiceCollection);
         }
 
         [HttpGet]
         public IActionResult CreatePayment()
         {
-            List<Account> accounts = new List<Account>();
+            List<PersonalAccount> accountCollection = new List<PersonalAccount>();
+           
             if (dataBase.Open())
             {
-                dataBase.GetTable(accounts);
+                dataBase.GetTable(accountCollection);
                 dataBase.Close();
             }
-            ViewBag.accounts = accounts;
+            ViewBag.accounts = accountCollection;
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreatePayment(Payment payment)
+        public IActionResult CreatePayment(PersonalAccountPayment payment)
         {
-            List<Payment> payments = new List<Payment>();
+            List<PersonalAccount> accountCollection = new List<PersonalAccount>();
+            List<PersonalAccountPayment> paymentCollection = new List<PersonalAccountPayment>();
             if (dataBase.Open())
             {
-                dataBase.AddPayment(payment);
-                dataBase.GetTable(payments);
+                dataBase.AddPersonalAccountPayment(payment);
+                dataBase.GetTable(accountCollection);
+                dataBase.GetTable(paymentCollection);
                 dataBase.Close();
             }
-            return View("Payment", payments);
+            ViewBag.accounts = accountCollection;
+            return View("Payment", paymentCollection);
+        }
+
+        public IActionResult PersonalAccountList()
+        {
+            List<PersonalAccount> accountCollection = new List<PersonalAccount>();
+            if (dataBase.Open())
+            {
+                dataBase.GetTable(accountCollection);
+                dataBase.Close();
+            }
+            return View(accountCollection);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
