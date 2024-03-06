@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Security.Principal;
 using WebApplicationBalance.Models;
+using WebApplicationBalance.Service;
 
 namespace WebApplicationBalance.Controllers
 {
@@ -9,12 +11,12 @@ namespace WebApplicationBalance.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        private MyDataBaseHelper dataBase;
 
-        private MyDataBase dataBase = new MyDataBase("Server=.\\SQLEXPRESS;Database=Balance;Trusted_Connection=True;") ;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IDataBase _dataBase)
         {
             _logger = logger;
+            dataBase = new MyDataBaseHelper(_dataBase);
         }
 
         public IActionResult Index()
@@ -118,6 +120,23 @@ namespace WebApplicationBalance.Controllers
                 dataBase.Close();
             }
             return View(accountCollection);
+        }
+
+        public IActionResult CreatePersonalAccount()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreatePersonalAccount(PersonalAccount personalAccount)
+        {
+            List<PersonalAccount> accountCollection = new List<PersonalAccount>();
+            if (dataBase.Open())
+            {
+                dataBase.AddPersonalAccount(personalAccount);
+                dataBase.GetTable(accountCollection);
+                dataBase.Close();
+            }
+            return View("PersonalAccountList", accountCollection);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
