@@ -8,9 +8,11 @@ namespace WebApplicationBalance.Models
         [Display(Name = "Выберите счет")]
         [Required(ErrorMessage = "Выберите счет")]
         public int PersonalAccountId { get; set; } 
+      
+        public string Account { get; set; }
+
         [Display(Name = "Введите сумму")]
         [Required(ErrorMessage = "Введите сумму")]
-        public string Account { get; set; }
         public Decimal SumAccount { get; set; }
         [Display(Name = "Введите описание")]
         public string Description { get; set; }

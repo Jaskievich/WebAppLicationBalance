@@ -13,13 +13,13 @@
          
             <div class="form-group">
                 <label asp-for="PersonalAccountId" class="control-label"></label>
-                @* <input asp-for="Personal_Account" class="form-control" /> *@
-                <select asp-for="PersonalAccountId" class="form-control">
+                <input asp-for="PersonalAccountId" class="form-control" />
+             @*    <select asp-for="PersonalAccountId" class="form-control">
                     @foreach (var item in ViewBag.accounts)
                     {
                         <option value=@item.Id>@item.Account ( @item.FullName )</option>
                     }
-                </select>
+                </select> *@
                 <span asp-validation-for="PersonalAccountId" class="text-danger"></span>
             </div>
             <div class="form-group">
