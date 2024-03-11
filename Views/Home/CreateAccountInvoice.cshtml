@@ -6,6 +6,8 @@
 
 <h3>@ViewData["Title"]</h3>
 <hr />
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateAccountInvoice">
@@ -13,14 +15,16 @@
          
             <div class="form-group">
                 <label asp-for="PersonalAccountId" class="control-label"></label>
-                <input asp-for="PersonalAccountId" class="form-control" />
+                <input asp-for="Account" id="inputPersonalAccount" class="form-control" />
              @*    <select asp-for="PersonalAccountId" class="form-control">
                     @foreach (var item in ViewBag.accounts)
                     {
                         <option value=@item.Id>@item.Account ( @item.FullName )</option>
                     }
                 </select> *@
+                <button onclick="GetListPersonalAccount()">Плательщики</button>
                 <span asp-validation-for="PersonalAccountId" class="text-danger"></span>
+               @*  <input type="hidden" asp-for="PersonalAccountId" id="PersonalAccountId" /> *@
             </div>
             <div class="form-group">
                 <label asp-for="SumAccount" class="control-label"></label>
@@ -43,6 +47,46 @@
     <a asp-action="Index">Вернуться к списку счетов</a>
 </div>
 
+
+<div class="modal" id="myModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Плательщики</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <select asp-for="PersonalAccountId" id="selectPersonalAccountId" size="5" multiple="multiple" class="form-control">
+                @foreach (var item in ViewBag.accounts)
+                {
+                    <option value=@item.Id>@item.Account ( @item.FullName )</option>
+                }
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-select">Выбрать</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function GetListPersonalAccount() {
+           
+            $('#myModal').modal('show');
+            $("#modal-btn-select").on("click", function () {
+                let id = $('#selectPersonalAccountId').val();
+                let str = $('#selectPersonalAccountId option:selected').text();
+                $('#inputPersonalAccount').val(str);
+                $("#myModal").modal('hide');
+            });
+
+        
+        }
+    </script>
+
 }
