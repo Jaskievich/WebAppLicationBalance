@@ -24,7 +24,7 @@
                 </select> *@
                 <button onclick="GetListPersonalAccount()">Плательщики</button>
                 <span asp-validation-for="PersonalAccountId" class="text-danger"></span>
-               @*  <input type="hidden" asp-for="PersonalAccountId" id="PersonalAccountId" /> *@
+                <input type="hidden" asp-for="PersonalAccountId" id="inputPersonalAccountId" />
             </div>
             <div class="form-group">
                 <label asp-for="SumAccount" class="control-label"></label>
@@ -82,10 +82,9 @@
                 let id = $('#selectPersonalAccountId').val();
                 let str = $('#selectPersonalAccountId option:selected').text();
                 $('#inputPersonalAccount').val(str);
+                $('#inputPersonalAccountId').val(id);
                 $("#myModal").modal('hide');
-            });
-
-        
+            });      
         }
     </script>
 

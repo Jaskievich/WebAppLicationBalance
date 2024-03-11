@@ -72,6 +72,12 @@ namespace WebApplicationBalance.Controllers
             List<PersonalAccountInvoice> accountInvoiceCollection = new List<PersonalAccountInvoice>();
             if (dataBase.Open())
             {
+                if(personalAccountInvoice.PersonalAccountId == 0  && personalAccountInvoice.Account.Length!=0)
+                {
+                    // Создать новый лицевой счет
+                 //   dataBase.AddPersonalAccount(new PersonalAccount(personalAccountInvoice.Account));
+
+                }
                 dataBase.AddPersonalAccountInvoice(personalAccountInvoice);
                 dataBase.GetTable(accountCollection);
                 dataBase.GetTable(accountInvoiceCollection);

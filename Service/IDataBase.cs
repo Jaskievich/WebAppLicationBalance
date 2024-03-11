@@ -216,7 +216,7 @@ namespace WebApplicationBalance.Service
         {
             if (personalAccount != null)
             {
-                string sqlExpression = String.Format("INSERT INTO PersonalAccount (Account, FullName) VALUES('{0}', '{1}')",
+                string sqlExpression = String.Format("EXECUTE AddPersonalAccount '{0}', '{1}'",
                     personalAccount.Account, personalAccount.FullName);
                 _dataBase.AddItem(sqlExpression);
             }

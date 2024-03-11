@@ -18,11 +18,11 @@ namespace WebApplicationBalance.Models
         public string Account { get; set; }
         [Display(Name = "ФИО")]
         [Required(ErrorMessage = "ФИО")]
-        public string FullName { get; set; }
+        public string? FullName { get; set; }
 
         public PersonalAccount() { }
 
-        public PersonalAccount(int _Id, string _Account, string _FullName) 
+        public PersonalAccount(int _Id, string _Account, string? _FullName) 
         {
             Id = _Id;
 
@@ -31,5 +31,9 @@ namespace WebApplicationBalance.Models
             FullName = _FullName;
         }
 
+        public PersonalAccount(string account)
+        {
+            Account = account;
+        }
     }
 }
