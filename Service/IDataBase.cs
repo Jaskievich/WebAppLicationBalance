@@ -196,8 +196,12 @@ namespace WebApplicationBalance.Service
         {
             if (personalAccountInvoice != null)
             {
-                string sqlExpression = String.Format("EXECUTE AddPersonalAccountMoney '{0}', {1}, '{2}', 1",
-                    personalAccountInvoice.PersonalAccountId, personalAccountInvoice.SumAccount, personalAccountInvoice.Description);
+                string? sqlExpression = null;
+                if (personalAccountInvoice.PersonalAccountId != 0)
+                    sqlExpression = String.Format("EXECUTE AddPersonalAccountMoney '{0}', {1}, '{2}', 1", personalAccountInvoice.PersonalAccountId, personalAccountInvoice.SumAccount, personalAccountInvoice.Description);
+                else if (personalAccountInvoice.Account.Length != 0)
+                    sqlExpression = String.Format("EXECUTE AddPersonalAccountInvoise '{0}', {1}, '{2}'", personalAccountInvoice.Account, personalAccountInvoice.SumAccount, personalAccountInvoice.Description);
+                else return;
                 _dataBase.AddItem(sqlExpression);
             }
         }
