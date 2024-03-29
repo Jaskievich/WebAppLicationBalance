@@ -139,6 +139,13 @@ namespace WebApplicationBalance.Controllers
             return View("PersonalAccountList", accountCollection);
         }
 
+        public IActionResult EditPersonalAccount(PersonalAccount personalAccount)
+        {
+           return View("CreatePersonalAccount");
+        }
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

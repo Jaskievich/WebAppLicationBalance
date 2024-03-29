@@ -1,7 +1,9 @@
 ﻿using NuGet.Configuration;
 using NuGet.Protocol.Plugins;
 using System.Configuration;
-using System.Data.SqlClient;
+//using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
+
 using System.Reflection;
 using WebApplicationBalance.Controllers;
 using WebApplicationBalance.Models;
@@ -220,8 +222,9 @@ namespace WebApplicationBalance.Service
         {
             if (personalAccount != null)
             {
-                string sqlExpression = String.Format("EXECUTE AddPersonalAccount '{0}', '{1}'",
-                    personalAccount.Account, personalAccount.FullName);
+                string sqlExpression = personalAccount.Id == 0 ?
+                    String.Format("EXECUTE AddPersonalAccount '{0}', '{1}'", personalAccount.Account, personalAccount.FullName) :
+                    String.Format("UPDATE  PersonalAccount SET Account = '{0}', FullName = '{1}' WHERE id = {2}", personalAccount.Account, personalAccount.FullName, personalAccount.Id);
                 _dataBase.AddItem(sqlExpression);
             }
         }
