@@ -144,6 +144,17 @@ namespace WebApplicationBalance.Controllers
            return View("CreatePersonalAccount");
         }
 
+        public IActionResult DeletePersonalAccount(int id)
+        {
+            List<PersonalAccount> accountCollection = new List<PersonalAccount>();
+            if (dataBase.Open())
+            {
+                dataBase.DelPersonalAccount(id);
+                dataBase.GetTable(accountCollection);
+                dataBase.Close();
+            }
+            return View("PersonalAccountList", accountCollection);
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -77,34 +77,45 @@ namespace WebApplicationBalance.Service
 
         public void GetTable<T>(string query, List<T> ItemCollection, dAddItem<T> AddItem)
         {
-            SqlCommand command = new SqlCommand(query, connection);
-            SqlDataReader? reader = null;
-            try
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                reader = command.ExecuteReader();
-                if (reader.HasRows) // если есть данные
+                SqlDataReader? reader = null;
+                try
                 {
-                    while (reader.Read()) // построчно считываем данные
+                    reader = command.ExecuteReader();
+                    if (reader.HasRows) // если есть данные
                     {
-                        AddItem(reader, ItemCollection);
+                        while (reader.Read()) // построчно считываем данные
+                        {
+                            AddItem(reader, ItemCollection);
+                        }
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                _logger.LogError(ex.Message);
-            }
-            finally
-            {
-                reader?.Close();
+                catch (SqlException ex)
+                {
+                    _logger.LogError(ex.Message);
+                }
+                finally
+                {
+                    reader?.Close();
+                }
             }
 
         }
 
         public void AddItem(string query)
         {
-            SqlCommand command = new SqlCommand(query, connection);
-            command.ExecuteNonQuery();
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                try
+                {
+                    command.ExecuteNonQuery();
+
+                }catch (SqlException ex)
+                {
+                    _logger.LogError(ex.Message);
+                }
+            }
         }
 
         public void Dispose()
@@ -225,6 +236,15 @@ namespace WebApplicationBalance.Service
                 string sqlExpression = personalAccount.Id == 0 ?
                     String.Format("EXECUTE AddPersonalAccount '{0}', '{1}'", personalAccount.Account, personalAccount.FullName) :
                     String.Format("UPDATE  PersonalAccount SET Account = '{0}', FullName = '{1}' WHERE id = {2}", personalAccount.Account, personalAccount.FullName, personalAccount.Id);
+                _dataBase.AddItem(sqlExpression);
+            }
+        }
+
+        public void DelPersonalAccount(int id)
+        {
+            if (id > 0)
+            {
+                string sqlExpression = String.Format("DELETE FROM PersonalAccount WHERE id = '{0}'", id);
                 _dataBase.AddItem(sqlExpression);
             }
         }
